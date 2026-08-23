@@ -1,7 +1,7 @@
 ---
 title: "Campus Energy Consumption Analytics"
 author: "Zarin Roushan"
-date: "2026-08-06"
+date: "`r Sys.Date()`"
 output: html_document
 ---
 
