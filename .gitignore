@@ -1,4 +1,20 @@
-.Rproj.user
+# R / RStudio
+.Rproj.user/
 .Rhistory
 .RData
 .Ruserdata
+
+# Ignore data files but keep the folder structure
+data/**/*.csv
+data/**/*.rds
+data/**/*.xlsx
+data/**/*.xls
+data/**/*.zip
+
+# Operating system files
+.DS_Store
+Thumbs.db
+__MACOSX/
+
+# Generated HTML output
+*.html

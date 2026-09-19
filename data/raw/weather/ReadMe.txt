@@ -1,0 +1,1 @@
+The CSV file in this folder contains weather data(temperature and humidity) at local building (IIIT-Delhi) and the Airport. This data can be used to quantify the variation in weather.

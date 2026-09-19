@@ -2,29 +2,525 @@
 title: "Campus Energy Consumption Analytics"
 author: "Zarin Roushan"
 date: "`r Sys.Date()`"
-output: html_document
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+## 1. Project Overview
+
+This project focuses on the analysis of electrical energy consumption using a real-world historical campus energy dataset.
+
+The project uses the publicly available **I-BLEND (Indian BuiLdings Energy coNsumption Dataset)** as a case-study dataset. I-BLEND was collected at the **Indraprastha Institute of Information Technology Delhi (IIIT-Delhi), New Delhi, India**.
+
+The objective of this project is to apply Business Analytics techniques in **R** to:
+
+- understand electrical energy consumption patterns,
+- examine relationships between energy consumption and occupancy,
+- analyze the influence of working days and campus activity,
+- identify high-consumption periods,
+- develop energy-consumption forecasting models,
+- evaluate hypothetical energy-saving scenarios.
+
+The dataset represents a **historical case study of the IIIT-Delhi campus**. It is not data collected from the user's college or from the current year. Therefore, the results will be interpreted as observations from the source campus and as a methodological example of campus energy analytics.
+
+------------------------------------------------------------------------
+
+# 2. Dataset Selection
+
+## 2.1 Selected Dataset: I-BLEND
+
+The **I-BLEND dataset** was selected because it provides fine-grained electrical energy measurements from multiple building types within an academic campus.
+
+The dataset was collected at **IIIT-Delhi** and contains electrical energy data from seven buildings:
+
+- Academic Building
+- Lecture Building
+- Library Building
+- Facilities Building
+- Dining Building
+- Boys' Dormitory
+- Girls' Dormitory
+
+The original energy dataset contains approximately **52 months of electrical measurements at one-minute resolution**.
+
+Supplementary information includes:
+
+- Occupancy data at ten-minute resolution
+- Institute calendar information
+- Weather data
+- Building-related information
+
+The electrical energy records contain:
+
+- Power
+- Current
+- Voltage
+- Frequency
+- Power factor
+
+## 2.2 Historical Nature of the Dataset
+
+The I-BLEND dataset is a historical dataset rather than a current 2025/2026 dataset.
+
+According to the original dataset documentation:
+
+- Energy data was considered through **December 31, 2017**.
+- Occupancy data was available from **February 16, 2014 to November 3, 2017**.
+- Local weather measurements at IIIT-Delhi were collected for approximately four months in **2018**.
+
+Therefore, this project does **not** attempt to describe current energy consumption in 2025 or 2026.
+
+Instead, the historical dataset is used to demonstrate how campus energy data can be processed, analyzed, modeled, and used for forecasting and energy-management analysis.
+
+## 2.3 Dataset Source
+
+### Official I-BLEND Dataset Collection
+
+[I-BLEND Dataset Collection](https://springernature.figshare.com/collections/I-BLEND_a_campus_scale_commercial_and_residential_buildings_electrical_energy_dataset/3893581/1)
+
+### Energy Dataset of IIIT-Delhi
+
+[Energy Dataset of IIITD — Springer Nature Figshare](https://springernature.figshare.com/articles/dataset/Energy_dataset_of_IIITD/6007637)
+
+### Research Paper
+
+[Rashid, H., Singh, P. & Singh, A. (2019). I-BLEND, a campus-scale commercial and residential buildings electrical energy dataset. Scientific Data.](https://www.nature.com/articles/sdata201915)
+
+------------------------------------------------------------------------
+
+# 3. Dataset Download and Organization
+
+The I-BLEND dataset was downloaded from the official dataset source.
+
+The accompanying research paper and documentation were retained for understanding the dataset structure, measurement methodology, time periods, and limitations.
+
+The raw dataset files were preserved without directly modifying the original source files.
+
+The project was organized into separate folders for raw data, processed data, R scripts, results, plots, and documentation.
+
+The project structure is:
+
+``` text
+Campus Energy Consumption Analytics
+│
+├── data
+│   ├── raw
+│   │   ├── energy
+│   │   ├── occupancy
+│   │   ├── calendar
+│   │   └── weather
+│   │
+│   └── processed
+│
+├── documentation
+├── R
+├── plots
+├── results
+├── Campus Energy Consumption Analytics.Rproj
+├── Campus_Energy_Consumption_Analytics.Rmd
+└── .gitignore
 ```
 
-## R Markdown
+The raw datasets were separated into:
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+1.  Energy
+2.  Occupancy
+3.  Calendar
+4.  Weather
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Unnecessary system-generated files such as `__MACOSX` and `.DS_Store` were removed.
 
-```{r cars}
-summary(cars)
+------------------------------------------------------------------------
+
+# 4. Data Inventory
+
+The first R script, `01_data_inventory.R`, was created to identify and categorize the available CSV files.
+
+The inventory classified the files into:
+
+- Energy datasets
+- Occupancy datasets
+- Calendar datasets
+- Weather dataset
+
+The inventory results were saved as:
+
+``` text
+results/file_inventory.csv
 ```
 
-## Including Plots
+------------------------------------------------------------------------
 
-You can also embed plots, for example:
+# 5. Data Inspection
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+The second R script, `02_inspect_data.R`, was created to inspect the structure and contents of the datasets.
+
+The inspection included:
+
+- Column names
+- Data types
+- Sample observations
+- Timestamp format
+- Missing values
+- Dataset dimensions
+- Time resolution
+
+The inspection confirmed approximately one-minute resolution for the primary energy data and ten-minute resolution for the occupancy datasets.
+
+------------------------------------------------------------------------
+
+# 6. Data Validation
+
+The third R script, `03_validate_data.R`, was created to validate the datasets before cleaning and aggregation.
+
+The validation included:
+
+- Chronological ordering
+- Duplicate timestamps and rows
+- Time intervals and irregular gaps
+- Missing values
+- Occupancy completeness
+- Calendar completeness
+
+The results were saved as:
+
+``` text
+results/validation_summary.csv
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+The validation identified missing observations and irregular time gaps in some energy and occupancy streams.
+
+These issues were not blindly corrected or filled. Coverage information was retained for later analysis.
+
+------------------------------------------------------------------------
+
+# 7. Data Cleaning
+
+The fourth R script, `04_clean_data.R`, was created to clean and standardize the energy data.
+
+The following operations were performed:
+
+- Converted Unix timestamps into date-time values.
+- Used the `Asia/Kolkata` timezone.
+- Converted relevant variables to numeric format.
+- Created combined Boys' dormitory measurements where appropriate.
+- Created combined Girls' dormitory measurements where appropriate.
+- Assessed missing values.
+- Preserved important missing-data information.
+
+The processed files are:
+
+``` text
+data/processed/energy_clean_minute.rds
+data/processed/energy_clean_minute.csv
+results/energy_missing_summary.csv
+```
+
+------------------------------------------------------------------------
+
+# 8. Hourly Energy Aggregation
+
+The fifth R script, `05_hourly_aggregation.R`, was created to transform minute-level energy measurements into an hourly analytical dataset.
+
+Minute-level power measurements were converted into hourly energy values using the available observations.
+
+Hourly coverage was calculated to identify incomplete hours.
+
+The following time variables were created:
+
+- Date
+- Hour
+- Day of week
+- Month
+- Year
+
+Building-level hourly energy variables were retained.
+
+## 8.1 Building Availability
+
+Some buildings contain substantial periods of missing data. Therefore, hourly coverage information was retained rather than treating all building measurements as equally complete.
+
+## 8.2 Analytical Campus-Level Energy Measure
+
+An analytical campus-level energy measure was created using a project-specific coverage rule.
+
+An hour is considered suitable when energy information is available from at least **5 of the 7 building-level measures**.
+
+This is an analytical decision made for this project and is **not a rule defined by the original I-BLEND dataset**.
+
+The resulting hourly dataset contains:
+
+``` text
+38,520 hourly observations
+```
+
+Generated files:
+
+``` text
+data/processed/energy_hourly.rds
+data/processed/energy_hourly.csv
+results/hourly_coverage_summary.csv
+```
+
+------------------------------------------------------------------------
+
+# 9. Occupancy Feature Processing
+
+The sixth R script, `06_merge_features.R`, was created to integrate occupancy information with the hourly energy dataset.
+
+All seven occupancy datasets were processed individually.
+
+The original occupancy timestamps were converted to `Asia/Kolkata` date-time values and aggregated to hourly observations.
+
+## 9.1 Hourly Occupancy Features
+
+Two occupancy features were retained:
+
+- **Hourly mean occupancy**
+- **Hourly peak occupancy**
+
+Hourly mean occupancy represents the average observed occupancy during the hour.
+
+Hourly peak occupancy represents the highest observed occupancy during the hour.
+
+The number of available occupancy observations was also retained so that occupancy coverage could be evaluated.
+
+## 9.2 Occupancy Data Limitation
+
+The original I-BLEND occupancy data was generated using Wi-Fi-based measurements.
+
+The dataset documentation notes that occupancy estimates can contain overestimation when a person has multiple connected devices and underestimation when a person does not connect to the Wi-Fi network.
+
+Therefore, occupancy values are treated as an observed occupancy measure rather than an exact physical headcount.
+
+------------------------------------------------------------------------
+
+# 10. Institute Calendar Integration
+
+The institute calendar files were combined into a single calendar dataset.
+
+The following variables were created:
+
+- Working-day indicator
+- Activity information
+- Activity-level classification
+
+The calendar information was then merged with the hourly energy dataset.
+
+After merging:
+
+``` text
+Hourly rows: 38,520
+Missing calendar rows: 0
+```
+
+------------------------------------------------------------------------
+
+# 11. Final Feature Dataset
+
+The energy, occupancy, and calendar datasets were merged into a single hourly analytical dataset.
+
+The resulting dataset contains:
+
+- Hourly energy measurements
+- Building-level energy variables
+- Energy coverage information
+- Hourly mean occupancy
+- Hourly peak occupancy
+- Occupancy observation counts
+- Working-day information
+- Calendar activity information
+- Date and time features
+
+The final processed files are:
+
+``` text
+data/processed/energy_hourly_with_features.rds
+data/processed/energy_hourly_with_features.csv
+results/occupancy_hourly_coverage.csv
+```
+
+At this stage, the **data preparation and feature-integration phase is complete**.
+
+------------------------------------------------------------------------
+
+# 12. Exploratory Data Analysis
+
+The next stage is **Exploratory Data Analysis (EDA)**.
+
+The analysis will cover:
+
+- Overall energy consumption over time
+- Hourly, daily, monthly, and seasonal patterns
+- Day-of-week patterns
+- Working versus non-working days
+- Building-level consumption
+- Peak consumption periods
+- Occupancy patterns
+- Occupancy versus energy consumption
+- Energy and occupancy data coverage
+
+Planned visualizations include:
+
+- Overall energy trend
+- Hour-of-day plot
+- Day-of-week plot
+- Working vs non-working comparison
+- Monthly/seasonal plot
+- Building comparison
+- Occupancy-energy relationship
+- Data coverage visualization
+
+------------------------------------------------------------------------
+
+# 13. Energy Consumption Analysis
+
+After completing EDA, the following analyses will be performed:
+
+- Building-level consumption statistics
+- High-consumption period identification
+- Peak energy analysis
+- Working-day versus non-working-day analysis
+- Occupancy-energy relationship analysis
+- Identification of variables associated with energy consumption
+
+No conclusions will be added until they are supported by the actual analysis results.
+
+------------------------------------------------------------------------
+
+# 14. Forecasting and Prediction
+
+After the exploratory and descriptive analysis, forecasting and prediction models will be developed.
+
+The planned approach includes:
+
+- Establishing a baseline forecasting approach
+- Creating chronological training and testing periods
+- Multiple Linear Regression
+- A time-series forecasting model such as ARIMA/ETS
+- One nonlinear machine-learning model
+- Model evaluation
+- Comparison of actual and predicted energy consumption
+
+Because the dataset is time-series data, chronological validation will be used rather than randomly mixing observations between training and testing datasets.
+
+------------------------------------------------------------------------
+
+# 15. Energy-Saving Scenario Analysis
+
+After identifying important consumption patterns, hypothetical energy-saving scenarios will be developed.
+
+Possible scenarios include:
+
+- Reduction in unnecessary energy consumption during low-occupancy periods
+- Improved scheduling of building operation
+- Reduction of energy use during non-working periods
+- Occupancy-aware energy management
+
+The estimated reductions will be presented as **analytical scenarios**, not guaranteed real-world savings.
+
+Monetary savings will only be estimated if an appropriate electricity tariff is available.
+
+------------------------------------------------------------------------
+
+# 16. Final Visualizations and Recommendations
+
+The final report will contain selected visualizations from the analysis, including:
+
+- Overall energy consumption trend
+- Building-wise comparison
+- Hourly consumption pattern
+- Working vs non-working comparison
+- Seasonal/monthly pattern
+- Occupancy-energy relationship
+- Forecast results
+- Energy-saving scenario results
+
+Recommendations will be developed only after the analysis and models have produced supporting evidence.
+
+Because the dataset represents the historical IIIT-Delhi campus rather than the user's own institution, recommendations will be presented as **general campus energy-management insights** rather than direct recommendations for a specific college.
+
+------------------------------------------------------------------------
+
+# 17. Limitations
+
+The following limitations will be considered:
+
+1.  The dataset represents the **IIIT-Delhi campus**, not the user's college.
+2.  The main energy dataset is historical and covers a period ending in **2017**.
+3.  Supplementary local weather measurements were collected during **2018**.
+4.  The dataset should not be interpreted as representing current campus energy consumption in 2025 or 2026.
+5.  Several energy streams contain missing observations and irregular time gaps.
+6.  Occupancy is estimated using Wi-Fi-based measurements and may not represent an exact physical headcount.
+7.  The project-specific campus-level coverage rule is an analytical decision and is not part of the original I-BLEND methodology.
+8.  Energy-saving results will be scenario-based estimates rather than guaranteed real-world savings.
+9.  Findings from the IIIT-Delhi case study may not directly generalize to every academic campus.
+
+------------------------------------------------------------------------
+
+# 18. Project Progress Log
+
+This section is intentionally kept at the end of the document so that new progress can be added without changing the earlier sections.
+
+## Completed Work
+
+### Dataset and Project Setup
+
+- Selected I-BLEND as the case-study dataset.
+- Downloaded the dataset and retained the original documentation.
+- Organized the project directory.
+- Separated energy, occupancy, calendar, and weather data.
+- Removed unnecessary system-generated files.
+
+### Data Preparation
+
+- Created the data inventory.
+- Inspected the datasets.
+- Validated timestamps, duplicates, time intervals, missing values, and data completeness.
+- Identified irregular time gaps.
+- Cleaned and standardized the energy data.
+- Created missing-data summaries.
+
+### Energy Processing
+
+- Converted minute-level energy data to hourly data.
+- Calculated hourly coverage.
+- Created building-level hourly energy measures.
+- Created the analytical campus-level energy measure using the 5-of-7 building availability rule.
+
+### Occupancy and Calendar Processing
+
+- Processed all seven occupancy datasets.
+- Created hourly mean occupancy.
+- Created hourly peak occupancy.
+- Retained occupancy observation counts.
+- Combined institute calendar data.
+- Created working-day and activity-level variables.
+
+### Final Dataset
+
+- Merged energy, occupancy, and calendar features.
+- Created the final hourly analytical dataset.
+- Saved the processed RDS and CSV files.
+- Completed the data preparation and feature-integration phase.
+
+------------------------------------------------------------------------
+
+## Progress Updates
+
+New progress updates will be added below this line after each major stage. Previous updates will not be modified.
+
+### Progress Update — Exploratory Data Analysis
+
+**Status:** In Progress
+
+**Work Completed:** - To be updated after EDA.
+
+**Key Findings:** - To be updated after EDA.
+
+**Files Created/Updated:** - To be updated after EDA.
+
+**Next Step:** - To be updated after EDA.
