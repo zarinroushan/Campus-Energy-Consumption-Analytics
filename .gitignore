@@ -18,3 +18,5 @@ __MACOSX/
 
 # Generated HTML output
 *.html
+
+!index.html
