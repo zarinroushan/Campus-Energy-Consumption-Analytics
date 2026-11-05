@@ -513,14 +513,78 @@ This section is intentionally kept at the end of the document so that new progre
 
 New progress updates will be added below this line after each major stage. Previous updates will not be modified.
 
-### Progress Update — Exploratory Data Analysis
+## Project Progress Update — Exploratory Data Analysis and Energy Analysis
 
-**Status:** In Progress
+### Step 07: Exploratory Data Analysis (EDA)
 
-**Work Completed:** - To be updated after EDA.
+Created visualizations to understand the dataset's energy consumption patterns, including:
 
-**Key Findings:** - To be updated after EDA.
+- Overall campus energy trends.
+- Hourly, weekday, working-day and non-working-day consumption patterns.
+- Monthly consumption patterns.
+- Building-wise energy comparisons.
+- Occupancy patterns and occupancy-energy relationships.
+- Energy data coverage and availability.
 
-**Files Created/Updated:** - To be updated after EDA.
+Generated plots were saved in the `plots/` directory, and supporting summary tables were saved in `results/`.
 
-**Next Step:** - To be updated after EDA.
+### Step 07B: EDA Validation
+
+Performed additional checks to assess the reliability and comparability of the exploratory findings.
+
+- Examined the number of available building readings for each hour.
+- Compared campus energy totals calculated using at least 5, 6 and 7 available buildings.
+- Reviewed occupancy data availability and summary statistics.
+- Generated a corrected overall energy trend using validated observations.
+
+**Important limitation:** Campus totals based on different combinations of available buildings are not directly comparable. Differences between these totals should not automatically be interpreted as changes in actual energy consumption.
+
+### Step 08: Energy Consumption Analysis
+
+Conducted a more detailed analysis of building-level and campus-level energy consumption.
+
+The analysis covered:
+
+- Average, median and peak energy consumption by building.
+- Hourly energy consumption profiles.
+- Weekday and monthly energy patterns.
+- Daily energy consumption trends.
+- High-demand hours and peak-demand observations.
+- Building-level comparisons using a minimum hourly meter-coverage threshold of 75%.
+- Campus-level analysis requiring at least five qualifying buildings.
+
+The 95th percentile of campus energy demand was used as a threshold for identifying high-demand hours.
+
+### Step 08B: Data Quality Checks
+
+Performed data quality checks without modifying or deleting the original energy observations.
+
+The checks included:
+
+- Missing-value and zero-reading analysis.
+- Building-wise data availability summaries.
+- Identification of extreme observations using IQR-based thresholds.
+- Separate treatment of Lecture building readings when calculating IQR thresholds, because its large number of zero readings would otherwise produce an uninformative threshold.
+- Campus total comparability checks based on the number of available buildings.
+
+**Key observations:**
+
+- Lecture energy data contains a substantial number of zero readings. These are flagged for investigation rather than automatically classified as errors.
+- Library and Facilities contain observations flagged by the outlier analysis. These require further investigation and are not necessarily incorrect measurements.
+- Campus energy totals vary with building availability, so coverage must be considered when interpreting comparisons.
+
+### Outputs Generated
+
+The analysis generated:
+
+- R scripts for EDA, validation, energy analysis and data quality checks.
+- PNG visualizations saved in `plots/`.
+- CSV summary tables and audit outputs saved in `results/`.
+
+Raw and processed datasets remain excluded from Git tracking through `.gitignore`.
+
+### Limitations and Interpretation
+
+The analysis uses the historical I-BLEND dataset from IIIT-Delhi. It is a case study and methodology template, not a measurement of current energy consumption at Heritage Institute of Technology.
+
+The dataset contains missing and irregular observations, occupancy values are estimates rather than exact headcounts, and the available weather data is from a different year than the energy data. These limitations must be considered when interpreting results.

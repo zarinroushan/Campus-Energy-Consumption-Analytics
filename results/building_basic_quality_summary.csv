@@ -1,0 +1,8 @@
+"building","total_hours","observed_hours","missing_hours","zero_readings","negative_readings","mean_energy_kWh","median_energy_kWh","maximum_energy_kWh"
+"Academic_energy_kWh",38520,37882,638,107,0,27.7443414999208,23.2568,79.7473
+"Boys_total_energy_kWh",38520,28690,9830,0,0,30.6038427431161,28.61135,82.4489
+"Facilities_energy_kWh",38520,34462,4058,0,0,10.3637350908247,9.8544,136.0562
+"Girls_total_energy_kWh",38520,27635,10885,0,0,14.1256769495205,14.001,28.7241
+"Lecture_energy_kWh",38520,37882,638,29696,0,0.640674333456523,0,26.1386
+"Library_energy_kWh",38520,28640,9880,0,0,9.04957740223464,6.75135,40.5098
+"Mess_energy_kWh",38520,33676,4844,0,0,22.1132830116403,20.5703,77.6915

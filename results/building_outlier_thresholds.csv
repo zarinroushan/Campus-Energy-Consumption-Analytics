@@ -1,0 +1,8 @@
+"building","observations_used","threshold_basis","q1","median_energy","q3","iqr","upper_outlier_limit","extreme_outlier_limit"
+"Academic_energy_kWh",37882,"All observed readings",18.41735,23.2568,32.868875,14.451525,54.5461625,76.22345
+"Boys_total_energy_kWh",28690,"All observed readings",21.824025,28.61135,38.051125,16.2271,62.391775,86.732425
+"Facilities_energy_kWh",34462,"All observed readings",8.00805,9.8544,12.165575,4.157525,18.4018625,24.63815
+"Girls_total_energy_kWh",27635,"All observed readings",10.86605,14.001,16.78385,5.9178,25.66055,34.53725
+"Lecture_energy_kWh",8186,"Positive readings only",1.243625,3.3411,4.318175,3.07455,8.93,13.541825
+"Library_energy_kWh",28640,"All observed readings",4.51835,6.75135,11.52235,7.004,22.02835,32.53435
+"Mess_energy_kWh",33676,"All observed readings",15.9425,20.5703,26.90385,10.96135,43.345875,59.7879
