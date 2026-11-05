@@ -1,0 +1,6 @@
+Insight_ID,Area,Finding,Interpretation
+I01,Data Monitoring,Overall observed hourly data coverage is 87.41%.,Some hourly energy observations are missing.
+I02,Data Quality,Annual coverage ranges from 72.67% to 98.72%.,Data completeness differs across years. Annual totals should therefore be interpreted cautiously.
+I03,Energy Planning,The observed dataset contains approximately 3434469 kWh across valid hourly records.,"Observed energy records provide a starting point for energy-management planning, but do not represent a perfectly complete campus-wide measurement."
+I04,Energy Efficiency,A hypothetical 10% reduction corresponds to 343447 kWh of observed baseline energy.,"A 10% reduction is a hypothetical planning scenario, not an achieved or technically verified saving."
+I05,Demand Forecasting,Lag-Based Regression reduced test-set MAE by 3.98% compared with the previous-hour baseline.,"The lag-based model performed better on average, but its improvement was modest and not conclusive under the moving-block bootstrap analysis."

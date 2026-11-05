@@ -1,0 +1,3 @@
+"Model","Mean_Absolute_Error","Median_Absolute_Error","Error_Standard_Deviation","Mean_Bias","Error_95th_Percentile","Maximum_Absolute_Error","Underestimation_Count","Overestimation_Count"
+"Naive Previous Hour",9.18783762006403,5.88075,13.4419384294501,0.0524130736392743,31.374445,82.3374,795,1079
+"Lag-Based Regression",8.8221189189757,6.5731877331267,12.0906488548626,0.528398253047863,25.5078763359588,66.975401141626,822,1052

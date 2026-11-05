@@ -1,0 +1,7 @@
+Recommendation_ID,Priority,Area,Recommendation,Reason,Suggested_KPI
+R01,High,Energy Monitoring,Improve hourly meter-data completeness and automate missing-data alerts.,"Overall coverage is below 100%, and annual coverage varies.",Percentage of valid hourly meter observations
+R02,High,Data Quality,"Investigate periods with missing readings, especially years with lower coverage.",2015 has the lowest annual coverage in the available data.,Missing hourly readings per month
+R03,High,Energy Management,Establish a regular energy-monitoring dashboard with monthly reviews.,Consistent monitoring helps identify unusual consumption patterns.,Monthly energy review completion rate
+R04,Medium,Energy Efficiency,Pilot practical energy-efficiency measures and measure their effects against a documented baseline.,Scenario analysis shows possible savings under hypothetical reductions.,Measured kWh reduction against baseline
+R05,Medium,Demand Forecasting,"Use the lag-based forecasting model as an experimental planning aid, with continued monitoring against a simple baseline.","It achieved the lowest MAE in the evaluated test set, but improvement was modest.",MAE and RMSE on future chronological test periods
+R06,Medium,Operational Planning,Investigate high-consumption periods and compare them with operating schedules before changing equipment use.,Time-based analysis can help identify periods for further investigation.,Energy consumption by hour and day

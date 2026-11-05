@@ -1,0 +1,6 @@
+"Selection_Criterion","Result"
+"Lowest Overall MAE","Lag-Based Regression"
+"Lowest Overall RMSE","Lag-Based Regression"
+"Lowest Median Absolute Error","Naive Previous Hour"
+"Recommended Model","Lag-Based Regression"
+"Bootstrap Evidence (7-day blocks)","The 7-day moving-block bootstrap interval includes zero. The daily improvement is not conclusive under this bootstrap analysis."

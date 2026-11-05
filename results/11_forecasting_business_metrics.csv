@@ -1,0 +1,6 @@
+Model,MAE,RMSE
+Naive Previous Hour,9.187838,13.43845
+Seasonal Naive (24h),16.466897,24.47987
+Linear Trend,30.227108,36.57293
+Calendar Regression,28.904753,34.27884
+Lag-Based Regression,8.822119,12.09897

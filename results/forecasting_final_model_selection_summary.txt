@@ -1,0 +1,22 @@
+CAMPUS ENERGY CONSUMPTION ANALYTICS
+STEP 09I: FINAL FORECASTING MODEL SELECTION
+
+Recommended model: Lag-Based Regression
+Best model by MAE: Lag-Based Regression
+Best model by RMSE: Lag-Based Regression
+Best model by median error: Naive Previous Hour
+
+Lag model MAE improvement: 0.3657 kWh
+Lag model MAE improvement: 3.98 %
+Lag model RMSE improvement: 9.97 %
+
+MOVING-BLOCK BOOTSTRAP
+The 7-day moving-block bootstrap interval includes zero. The daily improvement is not conclusive under this bootstrap analysis.
+
+METHODOLOGICAL LIMITATIONS
+- Evaluation uses one chronological test period.
+- Forecasting predictions use rolling one-step-ahead evaluation.
+- The 7-day block length is a sensitivity-analysis choice.
+- Bootstrap results do not establish generalization to other periods.
+- Historical dataset limitations still apply.
+- The recommendation is not a deployment guarantee.

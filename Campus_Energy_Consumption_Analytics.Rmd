@@ -9,6 +9,28 @@ output:
     number_sections: false
 ---
 
+
+
+
+```{r setup, include=FALSE}
+# Set the project root directory
+project_root <- "C:/Users/user/Documents/Campus Energy Consumption Analytics"
+
+knitr::opts_knit$set(root.dir = project_root)
+
+# Tell knitr to resolve images from the project root
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = "center",
+  out.width = "90%",
+  fig.path = "Campus_Energy_Consumption_Analytics_files/figure-html/"
+)
+```
+
+
+
 ## 1. Project Overview
 
 This project focuses on the analysis of electrical energy consumption using a real-world historical campus energy dataset.
@@ -104,23 +126,51 @@ The project was organized into separate folders for raw data, processed data, R 
 The project structure is:
 
 ``` text
-Campus Energy Consumption Analytics
+Campus Energy Consumption Analytics/
 │
-├── data
-│   ├── raw
-│   │   ├── energy
-│   │   ├── occupancy
-│   │   ├── calendar
-│   │   └── weather
+├── data/
+│   ├── raw/
+│   │   ├── energy/
+│   │   ├── occupancy/
+│   │   ├── calendar/
+│   │   └── weather/
 │   │
-│   └── processed
+│   └── processed/
 │
-├── documentation
-├── R
-├── plots
-├── results
+├── documentation/
+│
+├── R/
+│
+├── plots/
+│
+├── results/
+│
+├── reports/
+│   ├── figures_final/
+│   │   │
+│   │   ├── energy_savings/
+│   │   │   ├── 10g_annual_energy_savings_comparison.png
+│   │   │   ├── 10g_annual_observed_energy.png
+│   │   │   ├── 10g_energy_savings_comparison.png
+│   │   │   └── 10g_remaining_energy_comparison.png
+│   │   │
+│   │   ├── recommendations/
+│   │   │   ├── 11_annual_data_coverage.png
+│   │   │   └── 11_recommendation_priority.png
+│   │   │
+│   │   └── forecasting/
+│   │       ├── actual_vs_predicted_refined.png
+│   │       ├── detailed_daily_energy_trend_refined.png
+│   │       ├── detailed_monthly_energy_refined.png
+│   │       ├── forecast_error_by_hour.png
+│   │       ├── forecast_residuals_over_time_refined.png
+│   │       └── forecasting_moving_block_bootstrap.png
+│   │
+│   └── deliverables/
+│
 ├── Campus Energy Consumption Analytics.Rproj
 ├── Campus_Energy_Consumption_Analytics.Rmd
+├── Campus_Energy_Consumption_Analytics.html
 └── .gitignore
 ```
 
@@ -349,101 +399,211 @@ At this stage, the **data preparation and feature-integration phase is complete*
 
 # 12. Exploratory Data Analysis
 
-The next stage is **Exploratory Data Analysis (EDA)**.
+Exploratory Data Analysis (EDA) was completed to understand the historical energy-consumption patterns and assess the availability of the underlying measurements.
 
-The analysis will cover:
+The analysis covered:
 
-- Overall energy consumption over time
-- Hourly, daily, monthly, and seasonal patterns
-- Day-of-week patterns
-- Working versus non-working days
-- Building-level consumption
-- Peak consumption periods
-- Occupancy patterns
-- Occupancy versus energy consumption
-- Energy and occupancy data coverage
+- Overall energy-consumption trends.
+- Hourly, daily, monthly, and weekday patterns.
+- Working-day and non-working-day comparisons.
+- Building-level consumption patterns.
+- Occupancy patterns and occupancy-energy relationships.
+- Energy-data coverage and availability.
 
-Planned visualizations include:
+Visualizations and supporting summary tables were saved in the `plots/` and `results/` directories.
 
-- Overall energy trend
-- Hour-of-day plot
-- Day-of-week plot
-- Working vs non-working comparison
-- Monthly/seasonal plot
-- Building comparison
-- Occupancy-energy relationship
-- Data coverage visualization
+## 12.1 EDA Interpretation
+
+The EDA was interpreted alongside meter coverage. Because the set of buildings contributing to a campus total can vary over time, changes in the calculated total are not automatically treated as changes in actual campus demand.
+
+
+### Figure 1. Overall Energy Trend
+
+```{r fig-overall-energy-trend, echo=FALSE, out.width="90%", fig.align="center", fig.cap="Overall historical campus energy trend using corrected observations."}
+knitr::include_graphics("plots/overall_energy_trend_corrected.png")
+```
+
+### Figure 2. Energy Data Coverage
+
+```{r fig-energy-coverage, echo=FALSE, out.width="90%", fig.align="center", fig.cap="Availability of valid energy observations across the study period."}
+knitr::include_graphics("plots/energy_data_coverage.png")
+```
+
+### Figure 3. Hourly Energy Profile
+
+```{r fig-hourly-profile, echo=FALSE, out.width="90%", fig.align="center", fig.cap="Average hourly energy consumption profile."}
+knitr::include_graphics("plots/detailed_hourly_energy_profile.png")
+```
+
+### Figure 4. Occupancy and Energy Relationship
+
+```{r fig-occupancy-energy, echo=FALSE, out.width="90%", fig.align="center", fig.cap="Relationship between estimated occupancy and energy consumption. Occupancy values are Wi-Fi-derived estimates."}
+knitr::include_graphics("plots/occupancy_energy_relationship.png")
+```
+
 
 ------------------------------------------------------------------------
 
+
 # 13. Energy Consumption Analysis
 
-After completing EDA, the following analyses will be performed:
+The building-level and campus-level energy-consumption analysis was completed.
 
-- Building-level consumption statistics
-- High-consumption period identification
-- Peak energy analysis
-- Working-day versus non-working-day analysis
-- Occupancy-energy relationship analysis
-- Identification of variables associated with energy consumption
+The analysis included:
 
-No conclusions will be added until they are supported by the actual analysis results.
+- Average, median, and peak consumption statistics.
+- Hourly, weekday, and monthly patterns.
+- Daily energy-consumption trends.
+- High-demand hours and peak-demand observations.
+- Building comparisons using a minimum hourly meter-coverage threshold of 75%.
+- Campus-level analysis requiring at least five qualifying buildings.
+
+The 95th percentile of campus energy demand was used as an analytical threshold for identifying high-demand hours. This is a project-defined threshold, not an official standard.
+
+Data-quality checks were also performed. Zero readings and statistical outliers were flagged for investigation rather than automatically deleted or treated as errors.
+
+### Figure 5. Building-Level Energy Analysis
+
+```{r fig-building-energy, echo=FALSE, out.width="90%", fig.align="center", fig.cap="Comparative building-level energy consumption analysis."}
+knitr::include_graphics("plots/building_energy_analysis.png")
+```
+
+### Figure 6. Weekday Energy Profile
+
+```{r fig-weekday-energy, echo=FALSE, out.width="90%", fig.align="center", fig.cap="Energy consumption patterns across different weekdays."}
+knitr::include_graphics("plots/detailed_weekday_energy.png")
+```
 
 ------------------------------------------------------------------------
 
 # 14. Forecasting and Prediction
 
-After the exploratory and descriptive analysis, forecasting and prediction models will be developed.
+Forecasting was completed using a continuous observed period so that missing intervals were not silently imputed.
 
-The planned approach includes:
+## 14.1 Forecasting Dataset and Validation
 
-- Establishing a baseline forecasting approach
-- Creating chronological training and testing periods
-- Multiple Linear Regression
-- A time-series forecasting model such as ARIMA/ETS
-- One nonlinear machine-learning model
-- Model evaluation
-- Comparison of actual and predicted energy consumption
+- Selected continuous observed run: **9,370 hourly observations**.
+- Chronological training set: **7,496 observations (80%)**.
+- Chronological test set: **1,874 observations (20%)**.
+- Training period: 2016-06-10 09:00 to 2017-04-18 16:00.
+- Test period: 2017-04-18 17:00 to 2017-07-05 18:00.
 
-Because the dataset is time-series data, chronological validation will be used rather than randomly mixing observations between training and testing datasets.
+The reported model evaluation uses **rolling one-step-ahead predictions**. This is not the same as a fixed-origin forecast made many hours into the future.
+
+### Figure 7. Forecasting Training and Testing Split
+
+```{r fig-forecast-split, echo=FALSE, out.width="90%", fig.align="center", fig.cap="Chronological training and testing split used for forecasting evaluation."}
+knitr::include_graphics("plots/forecasting_train_test_split.png")
+```
+
+## 14.2 Model Comparison
+
+| Model | MAE | RMSE | Bias (predicted − actual) |
+|---|---:|---:|---:|
+| Naive — previous hour | 9.1878 | 13.4385 | 0.0524 |
+| Seasonal naive — 24 hours | 16.4669 | 24.4799 | 0.9647 |
+| Linear trend | 30.2271 | 36.5729 | -5.9802 |
+| Calendar regression | 28.9048 | 34.2788 | 5.7982 |
+| Lag-based regression | **8.8221** | **12.0990** | 0.5284 |
+
+The lag-based regression achieved the lowest MAE and RMSE among the evaluated models. Its MAE was approximately **3.98% lower** than the previous-hour naive baseline. This is a modest improvement, not evidence of a major forecasting breakthrough.
+
+The naive baseline had a lower median absolute error, so the lag-based model was not better on every error measure or every test observation.
+
+## 14.3 Robustness and Uncertainty
+
+The lag-based model had lower absolute error than the naive baseline on 1,025 of 1,874 test observations (54.70%). It performed better on 14 of 24 evaluated test weeks.
+
+Moving-block bootstrap confidence intervals for the MAE improvement included zero for all tested block lengths (3, 7, and 14 days). Therefore, the evidence that the lag-based model consistently outperforms the naive baseline is **not conclusive**.
+
+The model is best treated as an experimental planning aid that should be monitored against a simple baseline, not as a production-ready operational forecasting system.
+
+### Figure 8. Actual Versus Predicted Energy
+
+```{r fig-actual-predicted, echo=FALSE, out.width="100%", fig.align="center", fig.cap="Actual versus predicted energy using the selected lag-based regression model. Predictions use rolling one-step-ahead evaluation."}
+knitr::include_graphics("plots/actual_vs_predicted_refined.png")
+```
+
+### Figure 9. Forecast Residuals Over Time
+
+```{r fig-forecast-residuals, echo=FALSE, out.width="100%", fig.align="center", fig.cap="Forecast residuals over time, calculated as actual energy minus predicted energy."}
+knitr::include_graphics("plots/forecast_residuals_over_time_refined.png")
+```
+
+### Figure 10. Moving-Block Bootstrap
+
+```{r fig-bootstrap, echo=FALSE, out.width="90%", fig.align="center", fig.cap="Moving-block bootstrap confidence intervals for daily MAE improvement. All tested intervals include zero."}
+knitr::include_graphics("plots/forecasting_moving_block_bootstrap.png")
+```
 
 ------------------------------------------------------------------------
 
 # 15. Energy-Saving Scenario Analysis
 
-After identifying important consumption patterns, hypothetical energy-saving scenarios will be developed.
+The scenario analysis applied hypothetical percentage reductions to the observed total energy of **3,434,469 kWh**.
 
-Possible scenarios include:
+| Hypothetical reduction | Estimated energy reduction |
+|---|---:|
+| 5% | 171,723 kWh |
+| 10% | 343,447 kWh |
+| 15% | 515,170 kWh |
+| 20% | 686,894 kWh |
 
-- Reduction in unnecessary energy consumption during low-occupancy periods
-- Improved scheduling of building operation
-- Reduction of energy use during non-working periods
-- Occupancy-aware energy management
+These figures are illustrative scenarios. They are **not measured savings, achieved reductions, or guaranteed outcomes**. Monetary savings were not calculated because a verified applicable electricity tariff was not established.
 
-The estimated reductions will be presented as **analytical scenarios**, not guaranteed real-world savings.
+### Figure 11. Potential Energy Savings
 
-Monetary savings will only be estimated if an appropriate electricity tariff is available.
+```{r fig-energy-savings, echo=FALSE, out.width="90%", fig.align="center", fig.cap="Hypothetical energy savings under the 5%, 10%, 15% and 20% reduction scenarios."}
+knitr::include_graphics("plots/10g_energy_savings_comparison.png")
+```
+
+------------------------------------------------------------------------
+
+# 16. Business Insights, Recommendations, and Final Visualizations
+
+The business-insight and recommendation stage was completed. The project generated five business insights and six recommendations.
+
+## 16.1 Key Findings
+
+- Overall observation coverage was **87.41%**.
+- 2015 had the lowest annual coverage (**72.67%**).
+- 2017 had the highest annual coverage (**98.72%**).
+- Total observed energy across the analyzed data was **3,434,469 kWh**.
+- The lag-based regression had the best MAE among the evaluated forecasting models, with a modest 3.98% improvement over the previous-hour naive baseline.
+
+Annual coverage differs, and 2013 is a partial year. Annual totals should therefore not be interpreted as directly comparable complete-year totals.
+
+## 16.2 Recommendations
+
+| Priority | Recommendation |
+|---|---|
+| High | Improve hourly meter-data completeness and automate missing-data alerts. |
+| High | Investigate missing readings, especially the lower-coverage period in 2015. |
+| High | Establish a regular energy-monitoring dashboard with monthly reviews. |
+| Medium | Pilot energy-efficiency measures and measure their effects against a baseline. |
+| Medium | Use the lag model only as an experimental planning aid and monitor it against the naive baseline. |
+| Medium | Investigate high-consumption periods alongside operating schedules. |
+
+These recommendations are general campus energy-management insights derived from a historical case study. They are not direct operational instructions for Heritage Institute of Technology.
+
+### Figure 12. Annual Energy Data Coverage
+
+```{r fig-annual-coverage, echo=FALSE, out.width="90%", fig.align="center", fig.cap="Annual energy data coverage. The dashed 90% line is an illustrative reference, not an official threshold."}
+knitr::include_graphics("plots/11_annual_data_coverage.png")
+```
+
+### Figure 13. Business Recommendations by Priority
+
+```{r fig-recommendation-priority, echo=FALSE, out.width="80%", fig.align="center", fig.cap="Distribution of the six business recommendations by priority."}
+knitr::include_graphics("plots/11_recommendation_priority.png")
+```
+
+## 16.3 Final Outputs
+
+The final analysis produced R scripts, processed datasets, CSV summaries, visualizations, audit outputs, and a final report and presentation. The main deliverable files are linked in the **Final Deliverables** section near the end of this document.
 
 ------------------------------------------------------------------------
 
-# 16. Final Visualizations and Recommendations
-
-The final report will contain selected visualizations from the analysis, including:
-
-- Overall energy consumption trend
-- Building-wise comparison
-- Hourly consumption pattern
-- Working vs non-working comparison
-- Seasonal/monthly pattern
-- Occupancy-energy relationship
-- Forecast results
-- Energy-saving scenario results
-
-Recommendations will be developed only after the analysis and models have produced supporting evidence.
-
-Because the dataset represents the historical IIIT-Delhi campus rather than the user's own institution, recommendations will be presented as **general campus energy-management insights** rather than direct recommendations for a specific college.
-
-------------------------------------------------------------------------
 
 # 17. Limitations
 
@@ -588,3 +748,98 @@ Raw and processed datasets remain excluded from Git tracking through `.gitignore
 The analysis uses the historical I-BLEND dataset from IIIT-Delhi. It is a case study and methodology template, not a measurement of current energy consumption at Heritage Institute of Technology.
 
 The dataset contains missing and irregular observations, occupancy values are estimates rather than exact headcounts, and the available weather data is from a different year than the energy data. These limitations must be considered when interpreting results.
+
+------------------------------------------------------------------------
+
+## Project Progress Update — Forecasting (Step 09)
+
+Forecasting and model evaluation were completed using a continuous observed hourly segment.
+
+- Checked missing periods and continuous observed runs before modeling.
+- Used a chronological 80/20 train/test split.
+- Evaluated previous-hour naive, 24-hour seasonal naive, linear trend, calendar regression, and lag-based regression models.
+- Compared MAE, RMSE, bias, residuals, and error patterns.
+- Investigated model robustness by hour, weekday, and test week.
+- Used moving-block bootstrap intervals to assess uncertainty in the MAE difference.
+
+**Interpretation:** The lag-based regression improved MAE by approximately 3.98% over the previous-hour naive baseline, but the bootstrap confidence intervals included zero. The improvement is modest and not conclusive.
+
+The forecasting report and key findings were saved under `reports/` and `results/`.
+
+### Step 09 forecasting evaluation
+
+| Evaluation item | Result |
+|---|---:|
+| Continuous hourly observations | 9,370 |
+| Training observations | 7,496 |
+| Test observations | 1,874 |
+| Naive baseline MAE | 9.1878 |
+| Lag-based regression MAE | 8.8221 |
+| MAE improvement | 3.98% |
+
+------------------------------------------------------------------------
+
+## Project Progress Update — Final Visualization and Reporting (Step 10)
+
+Completed the project-wide audit, consistency checks, final visualization selection, visualization refinement, report enhancement, and energy-saving scenario analysis.
+
+The refined forecasting output was checked to ensure that all **1,874 prediction rows** retained hourly timestamps, spanning 2017-04-18 17:00 to 2017-07-05 18:00. The final forecast CSV contains the hourly predictions, and the daily and monthly summary outputs were generated separately.
+
+The reporting workflow generated:
+
+- `reports/09_forecasting_report.md`
+- `reports/10f_final_project_report_enhanced.md`
+- `reports/10e_final_project_report.md` (if retained from the earlier report-generation step)
+- `results/10e_key_findings.csv`
+- Refined plots and CSV files in `plots/` and `results/`
+
+The scenario analysis used 3,434,469 kWh as the observed-energy baseline. The 5%, 10%, 15%, and 20% scenarios are hypothetical reductions, not verified savings.
+
+------------------------------------------------------------------------
+
+## Project Progress Update — Business Insights and Recommendations (Step 11)
+
+Step 11 was completed successfully.
+
+- Overall observation coverage: **87.41%**.
+- Lowest-coverage year: **2015 (72.67%)**.
+- Highest-coverage year: **2017 (98.72%)**.
+- Total observed energy: **3,434,469 kWh**.
+- Five business insights generated.
+- Six recommendations generated: three High priority and three Medium priority.
+
+Generated outputs include:
+
+- `results/11_business_insights.csv`
+- `results/11_business_recommendations.csv`
+- `results/11_forecasting_business_metrics.csv`
+- `plots/11_recommendation_priority.png`
+- `plots/11_annual_data_coverage.png`
+- `reports/11_business_insights_and_recommendations.md`
+
+------------------------------------------------------------------------
+
+# 19. Final Deliverables
+
+The final report and presentation are provided with this project. If the files are kept in the `deliverables/` folder beside this R Markdown file, the links below will work when the project folder is shared or opened locally.
+
+- [Final project report (PDF)](deliverables/Campus_Energy_Consumption_Analytics_Final_Report.pdf)
+- [Final project presentation (PowerPoint)](deliverables/Campus_Energy_Consumption_Analytics_Final_Presentation.pptx)
+- [Final project report (Word)](deliverables/Campus_Energy_Consumption_Analytics_Final_Report.docx)
+
+The report is the detailed written record of the project. The PowerPoint is the presentation version of the findings. The Word copy is included for editable review.
+
+## 19.1 Main Project References
+
+1. Rashid, H., Singh, P., & Singh, A. (2019). *I-BLEND, a campus-scale commercial and residential buildings electrical energy dataset*. Scientific Data, 6, Article 190015. https://doi.org/10.1038/sdata.2019.15
+2. Rashid, H., Singh, P., & Singh, A. (2017). *I-BLEND dataset collection*. Springer Nature Figshare. https://doi.org/10.6084/m9.figshare.c.3893581
+
+------------------------------------------------------------------------
+
+# 20. Project Completion Status
+
+The planned analysis and reporting workflow for this project has been completed: data inventory and validation, cleaning and hourly aggregation, feature integration, EDA, energy analysis, forecasting, scenario analysis, business insights, recommendations, and final reporting.
+
+This does not mean the analysis is free of limitations. The main limitations remain missing and irregular observations, estimated Wi-Fi occupancy, non-contemporaneous supplementary weather data, and the historical IIIT-Delhi context. The forecasting improvement is modest and statistically inconclusive under the moving-block bootstrap checks.
+
+Optional future extensions could include external validation on another campus dataset, more forecasting approaches with carefully designed time-series validation, and an operational pilot using current meter data from a campus that grants access.

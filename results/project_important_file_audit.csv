@@ -1,0 +1,15 @@
+"File","Exists"
+"R/plot_utils.R",TRUE
+"R/09_forecasting_preparation.R",TRUE
+"R/09c_create_forecasting_dataset.R",TRUE
+"R/09d_forecasting_baselines.R",TRUE
+"R/09e_advanced_forecasting_models.R",TRUE
+"R/09f_forecast_evaluation.R",TRUE
+"R/09g_forecasting_robustness.R",TRUE
+"R/09h_error_investigation.R",TRUE
+"R/09i_final_model_selection.R",TRUE
+"R/09j_forecasting_report.R",TRUE
+"reports/09_forecasting_report.md",TRUE
+"results/forecasting_final_model_comparison.csv",TRUE
+"results/forecasting_moving_block_bootstrap.csv",TRUE
+"results/forecasting_report_key_findings.csv",TRUE

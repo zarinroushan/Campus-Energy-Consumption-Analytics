@@ -1,0 +1,16 @@
+"File_Name","Section","Reason","Exists","File_Size_KB"
+"energy_data_coverage.png","Data Quality","Shows energy data availability and coverage",TRUE,88.6
+"overall_energy_trend_corrected.png","Overall Energy Analysis","Shows the corrected overall energy trend",TRUE,110.17
+"building_comparison.png","Building-Level Analysis","Compares energy consumption across buildings",TRUE,46.7
+"building_energy_distributions.png","Building-Level Analysis","Shows differences in building-level distributions",TRUE,66.09
+"detailed_hourly_energy_profile.png","Temporal Analysis","Shows hourly consumption patterns",TRUE,75.53
+"detailed_daily_energy_trend.png","Temporal Analysis","Shows daily consumption patterns",TRUE,112.7
+"detailed_monthly_energy.png","Temporal Analysis","Shows monthly consumption patterns",TRUE,103.57
+"detailed_weekday_energy.png","Temporal Analysis","Shows weekday consumption patterns",TRUE,51.98
+"forecasting_train_test_split.png","Forecasting Methodology","Explains the chronological training and testing split",TRUE,155.61
+"forecasting_baseline_comparison.png","Forecasting Model Comparison","Compares baseline forecasting models",TRUE,98.27
+"advanced_forecasting_comparison.png","Forecasting Model Comparison","Compares advanced forecasting models",TRUE,141.35
+"actual_vs_predicted.png","Forecasting Evaluation","Compares actual and predicted energy values",TRUE,117.4
+"forecast_residuals_over_time.png","Forecasting Diagnostics","Shows forecast residual behaviour over time",TRUE,81.87
+"forecast_error_by_hour.png","Forecasting Diagnostics","Shows how forecast errors vary by hour",TRUE,34.16
+"forecasting_moving_block_bootstrap.png","Forecasting Validation","Shows uncertainty in the bootstrap improvement estimate",TRUE,40.68

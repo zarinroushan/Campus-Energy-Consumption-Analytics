@@ -1,0 +1,6 @@
+Scenario,Reduction_Percentage,Description,Baseline_Energy_kWh,Estimated_Savings_kWh,Remaining_Energy_kWh,Observed_Records,Dataset_Coverage_Percentage
+Baseline,0,No hypothetical reduction,3434469.0428,0,3434469.0428,33671,87.41173416407061
+Scenario 1,5,5% hypothetical reduction,3434469.0428,171723.45214,3262745.5906599998,33671,87.41173416407061
+Scenario 2,10,10% hypothetical reduction,3434469.0428,343446.90428,3091022.13852,33671,87.41173416407061
+Scenario 3,15,15% hypothetical reduction,3434469.0428,515170.35641999997,2919298.68638,33671,87.41173416407061
+Scenario 4,20,20% hypothetical reduction,3434469.0428,686893.80856,2747575.23424,33671,87.41173416407061

@@ -1,0 +1,5 @@
+"File","Exists"
+"data/processed/energy_hourly_with_features.rds",TRUE
+"data/processed/forecasting_selected_period.rds",TRUE
+"data/processed/forecasting_train.rds",TRUE
+"data/processed/forecasting_test.rds",TRUE

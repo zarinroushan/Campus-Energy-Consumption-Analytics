@@ -1,0 +1,67 @@
+ENERGY-SAVING SCENARIO ANALYSIS
+============================================
+
+OVERALL BASELINE
+Total records: 38520
+Observed records: 33671
+Missing/invalid records: 4849
+Observed coverage: 87.41 %
+Observed energy: 3434469.04 kWh
+
+ANNUAL BASELINE
+# A tibble: 5 × 6
+  Year  Total_Records Observed_Records Missing_Records
+  <chr>         <int>            <int>           <int>
+1 2013           3456             3090             366
+2 2014           8760             8180             580
+3 2015           8760             6366            2394
+4 2016           8784             7387            1397
+5 2017           8760             8648             112
+# ℹ 2 more variables: Observed_Energy_kWh <dbl>,
+#   Coverage_Percentage <dbl>
+
+OVERALL SCENARIO RESULTS
+# A tibble: 5 × 8
+  Scenario   Reduction_Percentage Description      Baseline_Energy_kWh
+  <chr>                     <dbl> <chr>                          <dbl>
+1 Baseline                      0 No hypothetical…            3434469.
+2 Scenario 1                    5 5% hypothetical…            3434469.
+3 Scenario 2                   10 10% hypothetica…            3434469.
+4 Scenario 3                   15 15% hypothetica…            3434469.
+5 Scenario 4                   20 20% hypothetica…            3434469.
+# ℹ 4 more variables: Estimated_Savings_kWh <dbl>,
+#   Remaining_Energy_kWh <dbl>, Observed_Records <int>,
+#   Dataset_Coverage_Percentage <dbl>
+
+ANNUAL SCENARIO RESULTS
+# A tibble: 25 × 10
+   Year  Scenario   Reduction_Percentage Observed_Energy_kWh
+   <chr> <chr>                     <dbl>               <dbl>
+ 1 2013  Baseline                      0             263723.
+ 2 2013  Scenario 1                    5             263723.
+ 3 2013  Scenario 2                   10             263723.
+ 4 2013  Scenario 3                   15             263723.
+ 5 2013  Scenario 4                   20             263723.
+ 6 2014  Baseline                      0             747741.
+ 7 2014  Scenario 1                    5             747741.
+ 8 2014  Scenario 2                   10             747741.
+ 9 2014  Scenario 3                   15             747741.
+10 2014  Scenario 4                   20             747741.
+# ℹ 15 more rows
+# ℹ 6 more variables: Estimated_Savings_kWh <dbl>,
+#   Remaining_Energy_kWh <dbl>, Total_Records <int>,
+#   Observed_Records <int>, Missing_Records <int>,
+#   Coverage_Percentage <dbl>
+# ℹ Use `print(n = ...)` to see more rows
+
+IMPORTANT LIMITATIONS
+- Scenario reductions are hypothetical assumptions.
+- Calculations use observed energy values only.
+- Missing readings have not been imputed.
+- Annual data coverage may differ between years.
+- Annual sums are not necessarily directly comparable
+  when observation coverage differs.
+- The results do not represent verified campus-wide savings.
+- No monetary savings are estimated without a verified tariff.
+- Technical feasibility of the reduction percentages
+  has not been established.

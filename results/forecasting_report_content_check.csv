@@ -1,0 +1,6 @@
+"Required_Term","Present"
+"Lag-Based Regression",TRUE
+"Naive Previous Hour",TRUE
+"moving-block bootstrap",TRUE
+"Limitations",TRUE
+"rolling one-step-ahead",TRUE

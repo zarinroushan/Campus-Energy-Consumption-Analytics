@@ -1,0 +1,3 @@
+"Test","Sample_Size","Mean_Daily_Improvement","Test_Statistic","P_Value","Alternative"
+"One-Sample Paired Daily MAE t-test",79,0.366860377466694,1.90513996941945,0.0302237944196841,"Lag-Based Regression has lower daily MAE"
+"Wilcoxon Signed-Rank Test on Daily MAE Differences",79,0.366860377466694,2021,0.0156690031954345,"Lag-Based Regression has lower daily MAE"

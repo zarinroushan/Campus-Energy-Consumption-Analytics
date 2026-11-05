@@ -1,0 +1,4 @@
+"Comparison","Observations","Percentage"
+"Lag-Based Regression Better",1025,54.6958377801494
+"Naive Previous Hour Better",849,45.3041622198506
+"Equal Absolute Error",0,0
